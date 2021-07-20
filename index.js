@@ -42,6 +42,30 @@ app.get('/api/persons/:id', (request, response) => {
     
 })
 
+const generateId = () => Math.floor(Math.random() * 1000)
+
+app.post('/api/persons', (request, response) => {
+    const name = request.body.name
+    const number = request.body.number
+    
+    
+    if (!name || !number) {
+        return response.status(400).json({
+            error: 'missing information'
+        })
+    }
+
+    const person = { 
+        id: generateId(),
+        name, 
+        number
+     }
+    
+    persons = persons.concat(person)
+    
+    response.json(person)
+})
+
 app.delete('/api/persons/:id', (request, response) => {
     const id = Number(request.params.id)
     persons = persons.filter(person => person.id !== id)
