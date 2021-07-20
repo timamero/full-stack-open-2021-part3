@@ -48,10 +48,15 @@ app.post('/api/persons', (request, response) => {
     const name = request.body.name
     const number = request.body.number
     
-    
     if (!name || !number) {
         return response.status(400).json({
-            error: 'missing information'
+            error: 'name and number are required'
+        })
+    }
+    
+    if (persons.filter(person => person.name.toLowerCase() === name.toLowerCase()).length !== 0) {
+        return response.status(400).json({
+            error: 'name must be unique'
         })
     }
 
