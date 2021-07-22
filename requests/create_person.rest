@@ -2,6 +2,16 @@ POST http://localhost:3001/api/persons
 Content-Type: application/json
 
 {
-    "name": "arto hella",
+    "name": "Oliver H",
+    "number": "123-123-1234"
+}
+
+###
+
+POST https://serene-ridge-12266.herokuapp.com/api/persons
+Content-Type: application/json
+
+{
+    "name": "Oliver H",
     "number": "123-123-1234"
 }
