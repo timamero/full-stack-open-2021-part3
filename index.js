@@ -2,6 +2,11 @@ const express = require('express')
 const cors = require('cors')
 const app = express()
 var morgan = require('morgan')
+const mongoose = require('mongoose')
+
+const url = `mongodb+srv://fullstack_user:${password}@cluster0.7udjh.mongodb.net/phonebook?retryWrites=true&w=majority`
+
+mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true})
 
 app.use(cors())
 app.use(express.static('build'))
