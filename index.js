@@ -59,22 +59,15 @@ app.post('/api/persons', (request, response) => {
             error: 'name and number are required'
         })
     }
-    
-    if (persons.filter(person => person.name.toLowerCase() === name.toLowerCase()).length !== 0) {
-        return response.status(400).json({
-            error: 'name must be unique'
-        })
-    }
 
-    const person = { 
-        id: generateId(),
+    const person = new Person({ 
         name, 
         number
-     }
+     })
     
-    persons = persons.concat(person)
-    
-    response.json(person)
+    person.save().then(newPerson => {
+        response.json(newPerson)
+    })
 })
 
 app.delete('/api/persons/:id', (request, response) => {
