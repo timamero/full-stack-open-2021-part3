@@ -1,19 +1,16 @@
+require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
 const app = express()
 var morgan = require('morgan')
-const mongoose = require('mongoose')
 
-const url = `mongodb+srv://fullstack_user:${password}@cluster0.7udjh.mongodb.net/phonebook?retryWrites=true&w=majority`
-
-mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true})
+const Person = require('./models/persons')
 
 app.use(cors())
 app.use(express.static('build'))
 app.use(express.json())
 morgan.token('body', function (req, res) { return JSON.stringify(req.body) })
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'))
-
 
 persons = [
     { 
@@ -39,19 +36,15 @@ persons = [
 ]
 
 app.get('/api/persons', (request, response) => {
-    response.json(persons)
+    Person.find({}).then(persons => {
+        response.json(persons)
+    }) 
 })
 
 app.get('/api/persons/:id', (request, response) => {
-    const id = Number(request.params.id)
-    const person = persons.find(person => person.id === id)
-    
-    if (person) {
+    Person.findById(request.params.id).then(person => {
         response.json(person)
-    } else {
-        response.status(404).end()
-    }
-    
+    })
 })
 
 const generateId = () => Math.floor(Math.random() * 1000)
@@ -98,7 +91,7 @@ app.get('/info', (request, response) => {
     response.send(message + date)
 })
 
-const PORT = process.env.PORT || 3001
+const PORT = process.env.PORT
 app.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`)
 })
