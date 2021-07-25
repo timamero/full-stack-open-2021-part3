@@ -37,6 +37,7 @@ persons = [
 
 app.get('/api/persons', (request, response) => {
     Person.find({}).then(persons => {
+        console.log('length', persons.length)
         response.json(persons)
     }) 
 })
@@ -84,11 +85,13 @@ app.delete('/api/persons/:id', (request, response) => {
 })
 
 app.get('/info', (request, response) => {
-    const numberOfPeople = persons.length + 1
-    const message = '<p>Phonebook has info for ' + String(numberOfPeople) + ' people<p>'
-    const date = '<p>' + String(Date()) + '</p>'
-    response.type('html')
-    response.send(message + date)
+    Person.find({}).then(persons => {
+        const numberOfPeople = persons.length
+        const message = '<p>Phonebook has info for ' + String(numberOfPeople) + ' people<p>'
+        const date = '<p>' + String(Date()) + '</p>'
+        response.type('html')
+        response.send(message + date)
+    }) 
 })
 
 const PORT = process.env.PORT
