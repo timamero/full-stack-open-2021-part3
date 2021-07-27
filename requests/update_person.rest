@@ -1,0 +1,17 @@
+PUT http://localhost:3001/api/persons/60fdb82bc73ab70f6cbe9221
+Content-Type: application/json
+
+{
+    "name": "Lola Wilson",
+    "number": "522-522-5222"
+}
+
+###
+# Test FAIL, Status 400
+PUT http://localhost:3001/api/persons/60fdb82bc73ab70f6cbe9221
+Content-Type: application/json
+
+{
+    "name": "Lola Wilson",
+    "number": ""
+}
