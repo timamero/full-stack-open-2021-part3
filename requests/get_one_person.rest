@@ -1,1 +1,9 @@
 GET http://localhost:3001/api/persons/60fc4fd0714e2a2b5010e6cd
+
+###
+# Test FAIL, Status 404
+GET http://localhost:3001/api/persons/50fc4fd0714e2a2b5010e6ce
+
+###
+# Test FAIL, Status 500
+GET http://localhost:3001/api/persons/123456
