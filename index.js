@@ -48,8 +48,6 @@ app.get('/api/persons/:id', (request, response) => {
     })
 })
 
-const generateId = () => Math.floor(Math.random() * 1000)
-
 app.post('/api/persons', (request, response) => {
     const name = request.body.name
     const number = request.body.number
@@ -71,10 +69,10 @@ app.post('/api/persons', (request, response) => {
 })
 
 app.delete('/api/persons/:id', (request, response) => {
-    const id = Number(request.params.id)
-    persons = persons.filter(person => person.id !== id)
-
-    response.status(204).end()
+    Person.findByIdAndRemove(request.params.id)
+        .then(result => {
+            response.status(204).end()
+        })
 })
 
 app.get('/info', (request, response) => {
