@@ -7,6 +7,26 @@ Content-Type: application/json
 }
 
 ###
+# Test FAIL, Status 400
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+    "name": "Bo",
+    "number": "321-6932-5753"
+}
+
+###
+# Test FAIL, Status 400
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+    "name": "Sonny Chu",
+    "number": "123"
+}
+
+###
 
 POST https://serene-ridge-12266.herokuapp.com/api/persons
 Content-Type: application/json
